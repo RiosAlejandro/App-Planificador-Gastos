@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { StyleSheet, View, Alert, Pressable, Image, Modal } from 'react-native';
+import { StyleSheet, View, Alert, Pressable, Image, Modal, ScrollView } from 'react-native';
 import Header from './src/components/Headers';
 import NuevoPresupuesto from './src/components/NuevoPresupuesto';
 import ControlPresupuesto from './src/components/ControlPresupuesto';
 import FormularioGasto from './src/components/FormularioGasto';
+import { generarId } from './src/helpers';
+import ListadoGastos from './src/components/ListadoGastos';
 
 function App(): JSX.Element {
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
@@ -16,26 +18,42 @@ function App(): JSX.Element {
     if (Number(nuevoPresupuesto) > 0){
       setIsValidPresupuesto(true);
     } else {
-      Alert.alert('Error', 'El presupuesto no puede ser 0 o menor', 'Ok');
+      Alert.alert('Error', 'El presupuesto no puede ser 0 o menor', [{text: 'Ok'}]);
     }
+  };
+
+  const handleGasto = (gasto) => {
+    if (Object.values(gasto).includes('')) {
+      Alert.alert('Error', 'Todos los campos son obligatorios', [{text: 'Ok'}]);
+    }
+    gasto.id = generarId();
+    setGastos([...gastos, gasto]);
+    setModal(!modal);
   };
 
   return (
     <View style={styles.contenedor}>
-      <View style={styles.header}>
-        <Header />
-        { !isValidPresupuesto ?
-          <NuevoPresupuesto
+      <ScrollView>
+        <View style={styles.header}>
+          <Header />
+          { !isValidPresupuesto ?
+            <NuevoPresupuesto
+              presupuesto={presupuesto}
+              setPresupuesto={setPresupuesto}
+              handleNuevoPresupuesto={handleNuevoPresupuesto}
+            /> :
+            <ControlPresupuesto
             presupuesto={presupuesto}
-            setPresupuesto={setPresupuesto}
-            handleNuevoPresupuesto={handleNuevoPresupuesto}
-          /> :
-          <ControlPresupuesto
-          presupuesto={presupuesto}
-          gastos={gastos}
+            gastos={gastos}
+            />
+          }
+        </View>
+        { isValidPresupuesto && (
+          <ListadoGastos
+            gastos={gastos}
           />
-        }
-      </View>
+        )}
+      </ScrollView>
       {modal && (
         <Modal
           animationType="slide"
@@ -44,6 +62,7 @@ function App(): JSX.Element {
         >
           <FormularioGasto
             setModal={setModal}
+            handleGasto={handleGasto}
           />
         </Modal>
       )}
@@ -69,13 +88,14 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: '#3b82f6',
+    minHeight: 400,
   },
   imagen: {
     width: 60,
     height: 60,
     position: 'absolute',
-    top: 10,
-    right: 20,
+    bottom: 40,
+    right: 30,
   },
 });
 
