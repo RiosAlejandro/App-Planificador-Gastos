@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native';
 
-const NuevoPresupuesto = ({handleNuevoPresupuesto}) => {
-  const [presupuesto, setPresupuesto] = useState(0);
+const NuevoPresupuesto = ({
+  handleNuevoPresupuesto,
+  presupuesto,
+  setPresupuesto}
+) => {
 
   return (
     <View style={styles.contenedor}>{/**Agregar sombras */}
