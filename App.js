@@ -17,7 +17,7 @@ import Filtro from './src/components/Filtro';
 import Header from './src/components/Headers';
 import Imagen from './src/components/Imagen';
 
-function App(): JSX.Element {
+function App() {
 
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [presupuesto, setPresupuesto] = useState(0);
@@ -28,7 +28,7 @@ function App(): JSX.Element {
   const [gastosFiltrados, setGastosFiltrados] = useState([]);
 
 
-  const handleNuevoPresupuesto = (nuevoPresupuesto: any) => {
+  const handleNuevoPresupuesto = nuevoPresupuesto => {
     if (Number(nuevoPresupuesto) > 0){
       setIsValidPresupuesto(true);
     } else {
@@ -36,21 +36,21 @@ function App(): JSX.Element {
     }
   };
 
-  const handleGasto = (gasto) => {
-    if ([gasto.nombre, gasto.categoria, gasto.cantidad].includes('')) {
+  const handleGasto = (gastoHandle) => {
+    if ([gastoHandle.nombre, gastoHandle.categoria, gastoHandle.cantidad].includes('')) {
       Alert.alert('Error', 'Todos los campos son obligatorios', [{text: 'Ok'}]);
       return;
     }
 
-    if (gasto.id) {
+    if (gastoHandle.id) {
       const gastosActualizados = gastos.map( gastoState => gastoState.id
         === gasto.id ? gasto : gastoState);
 
       setGastos(gastosActualizados);
     } else {
-      gasto.id = generarId();
-      gasto.fecha = Date.now();
-      setGastos([...gastos, gasto]);
+      gastoHandle.id = generarId();
+      gastoHandle.fecha = Date.now();
+      setGastos([...gastos, gastoHandle]);
     }
     setModal(!modal);
   };
@@ -129,7 +129,7 @@ function App(): JSX.Element {
         style={styles.pressable}
           onPress={() => setModal(!modal)}
         >
-          <Image source={require('./src/assets/img/nuevoGasto.png')} />
+          <Image source={require('./src/img/nuevoGasto.png')} />
           <Imagen />
         </Pressable>
       )}
