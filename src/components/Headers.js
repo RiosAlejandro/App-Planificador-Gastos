@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, SafeAreaView } from 'react-native';
 
 const Header = () => {
   return (
-    <View>
+    <SafeAreaView>
       <Text style={styles.texto}>Planificador de Gastos</Text>
-    </View>
+    </SafeAreaView>
    );
 };
 

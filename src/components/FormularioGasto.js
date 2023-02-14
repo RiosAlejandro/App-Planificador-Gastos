@@ -1,24 +1,66 @@
-import React, { useState } from 'react';
-import { Text, SafeAreaView, View, Pressable, TextInput, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  Text,
+  SafeAreaView,
+  View,
+  Pressable,
+  TextInput,
+  StyleSheet,
+} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const FormularioGasto = ({setModal, handleGasto}) => {
+const FormularioGasto = ({
+  setModal,
+  handleGasto,
+  gasto,
+  setGasto,
+  eliminarGasto,
+}) => {
+
   const [nombre, setNombre] = useState('');
   const [cantidad, setCantidad] = useState('');
   const [categoria, setCategoria] = useState('');
+  const [id, setId] = useState('');
+  const [fecha, setFecha] = useState('');
+
+  useEffect(() => {
+    if (gasto?.nombre) {
+      setNombre(gasto.nombre);
+      setCantidad(gasto.cantidad);
+      setCategoria(gasto.categoria);
+      setId(gasto.id);
+      setFecha(gasto.fecha);
+    }
+  }, [gasto]);
 
   return (
     <SafeAreaView style={styles.contenedor}>
-      <View>
+      <View style={styles.contenedorBotones}>
         <Pressable
-          onLongPress={() => setModal(false)}
-          style={styles.btnCancelar}
+          onLongPress={() => {
+            setModal(false);
+            setGasto({});
+          }}
+          style={[styles.btn ,styles.btnCancelar]}
         >
-          <Text styles={styles.btnCancelarTexto}>Cancelar</Text>
+          <Text styles={styles.btnTexto}>Cancelar</Text>
         </Pressable>
+
+        { !!id && (
+          <Pressable
+            style={[styles.btn ,styles.btnEliminar]}
+            onLongPress={() => eliminarGasto(id)}
+          >
+            <Text styles={styles.btnTexto}>Eliminar</Text>
+          </Pressable>
+        )}
       </View>
+
       <View style={styles.formulario}>
-        <Text style={styles.titulo}>Nuevo Gasto</Text>
+        <Text style={styles.titulo}>
+          { gasto?.nombre ? 'Editar Gasto' : 'Nuevo gasto' }
+        </Text>
+
         <View style={styles.campo}>
           <Text style={styles.label}>Nombre Gasto</Text>
           <TextInput
@@ -28,6 +70,7 @@ const FormularioGasto = ({setModal, handleGasto}) => {
             onChangeText={setNombre}
           />
         </View>
+
         <View style={styles.campo}>
           <Text style={styles.label}>Cantidad Gasto</Text>
           <TextInput
@@ -38,11 +81,12 @@ const FormularioGasto = ({setModal, handleGasto}) => {
             onChangeText={setCantidad}
           />
         </View>
+
         <View style={styles.campo}>
           <Text style={styles.label}>Categoría Gasto</Text>
           <Picker
             selectedValue={categoria}
-            onValueChange={(itemValue) => { setCategoria(itemValue); }}
+            onValueChange={(valor) => { setCategoria(valor); }}
           >
             <Picker.Item label="-- Seleccione --" value="" />
             <Picker.Item label="Ahorro" value="ahorro" />
@@ -54,12 +98,16 @@ const FormularioGasto = ({setModal, handleGasto}) => {
             <Picker.Item label="Suscripciones" value="suscripciones" />
           </Picker>
         </View>
+
         <Pressable
           style={styles.submitBtn}
-          onPress={() => {handleGasto({nombre, cantidad, categoria});}}
+          onPress={() => {handleGasto({nombre, cantidad, categoria, id, fecha});}}
         >
-          <Text style={styles.submitBtnTexto}>Agregar Gasto</Text>
+          <Text style={styles.submitBtnTexto}>
+            { gasto?.nombre ? 'Guardar Cambios' : 'Agregar Gasto' }
+          </Text>
         </Pressable>
+
       </View>
     </SafeAreaView>
    );
@@ -70,13 +118,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#1e40af',
     flex: 1,
   },
-  btnCancelar: {
-    backgroundColor: '#db2777',
+  contenedorBotones: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  btn: {
     padding: 10,
     marginTop: 30,
     marginHorizontal: 10,
+    flex: 1,
   },
-  btnCancelarTexto: {
+  btnEliminar: {
+    backgroundColor: 'red',
+  },
+  btnCancelar: {
+    backgroundColor: '#db2777',
+  },
+  btnTexto: {
     textAlign: 'center',
     textTransform: 'uppercase',
     fontWeight: 'bold',

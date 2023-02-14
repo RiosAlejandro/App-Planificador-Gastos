@@ -1,18 +1,32 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
-import { StyleSheet, View, Alert, Pressable, Image, Modal, ScrollView } from 'react-native';
-import Header from './src/components/Headers';
-import NuevoPresupuesto from './src/components/NuevoPresupuesto';
-import ControlPresupuesto from './src/components/ControlPresupuesto';
-import FormularioGasto from './src/components/FormularioGasto';
+import {
+  StyleSheet,
+  View,
+  Alert,
+  Pressable,
+  Modal,
+  ScrollView,
+  Image,
+} from 'react-native';
 import { generarId } from './src/helpers';
+import ControlPresupuesto from './src/components/ControlPresupuesto';
+import NuevoPresupuesto from './src/components/NuevoPresupuesto';
+import FormularioGasto from './src/components/FormularioGasto';
 import ListadoGastos from './src/components/ListadoGastos';
+import Filtro from './src/components/Filtro';
+import Header from './src/components/Headers';
+import Imagen from './src/components/Imagen';
 
 function App(): JSX.Element {
+
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   const [presupuesto, setPresupuesto] = useState(0);
   const [gastos, setGastos] = useState([]);
   const [modal, setModal] = useState(false);
+  const [gasto, setGasto] = useState({});
+  const [filtro, setFiltro] = useState('');
+  const [gastosFiltrados, setGastosFiltrados] = useState([]);
+
 
   const handleNuevoPresupuesto = (nuevoPresupuesto: any) => {
     if (Number(nuevoPresupuesto) > 0){
@@ -23,12 +37,38 @@ function App(): JSX.Element {
   };
 
   const handleGasto = (gasto) => {
-    if (Object.values(gasto).includes('')) {
+    if ([gasto.nombre, gasto.categoria, gasto.cantidad].includes('')) {
       Alert.alert('Error', 'Todos los campos son obligatorios', [{text: 'Ok'}]);
+      return;
     }
-    gasto.id = generarId();
-    setGastos([...gastos, gasto]);
+
+    if (gasto.id) {
+      const gastosActualizados = gastos.map( gastoState => gastoState.id
+        === gasto.id ? gasto : gastoState);
+
+      setGastos(gastosActualizados);
+    } else {
+      gasto.id = generarId();
+      gasto.fecha = Date.now();
+      setGastos([...gastos, gasto]);
+    }
     setModal(!modal);
+  };
+
+  const eliminarGasto = id => {
+    Alert.alert(
+      '¿Deseas eliminar este gasto?',
+      'Un gasto eliminado no se puede recuperar',
+      [
+        {text: 'No', style: 'cancel'},
+        {text: 'Si, Eliminar', onPress: () => {
+          const gastosActualizados = gastos.filter(gastoState => gastoState.id !== id);
+          setGastos(gastosActualizados);
+          setModal(!modal);
+          setGasto({});
+        }},
+      ]
+    );
   };
 
   return (
@@ -48,12 +88,26 @@ function App(): JSX.Element {
             />
           }
         </View>
+
         { isValidPresupuesto && (
-          <ListadoGastos
-            gastos={gastos}
-          />
+          <>
+            <Filtro
+              filtro={filtro}
+              setFiltro={setFiltro}
+              gastos={gastos}
+              setGastosFiltrados={setGastosFiltrados}
+            />
+            <ListadoGastos
+              gastos={gastos}
+              setModal={setModal}
+              setGasto={setGasto}
+              filtro={filtro}
+              gastosFiltrados={gastosFiltrados}
+            />
+          </>
         )}
       </ScrollView>
+
       {modal && (
         <Modal
           animationType="slide"
@@ -63,18 +117,20 @@ function App(): JSX.Element {
           <FormularioGasto
             setModal={setModal}
             handleGasto={handleGasto}
+            gasto={gasto}
+            setGasto={setGasto}
+            eliminarGasto={eliminarGasto}
           />
         </Modal>
       )}
 
       {isValidPresupuesto && (
         <Pressable
+        style={styles.pressable}
           onPress={() => setModal(!modal)}
         >
-          <Image
-            style={styles.imagen}
-            source={require('./src/assets/Materiales Planificador/img/nuevo-gasto.png')}
-          />
+          <Image source={require('./src/assets/img/nuevoGasto.png')} />
+          <Imagen />
         </Pressable>
       )}
     </View>
@@ -90,12 +146,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#3b82f6',
     minHeight: 400,
   },
-  imagen: {
+  pressable:{
     width: 60,
     height: 60,
     position: 'absolute',
     bottom: 40,
     right: 30,
+  },
+  imagen: {
+    width: 60,
+    height: 60,
   },
 });
 

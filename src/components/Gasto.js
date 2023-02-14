@@ -1,36 +1,53 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
-import { formatearCantidad } from '../helpers';
+import {
+  Image,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import { formatearCantidad, FormatearFecha } from '../helpers';
 
 const diccionarioIconos = {
-  ahorro: require('../assets/Materiales Planificador/img/icono_ahorro.png'),
-  comida: require('../assets/Materiales Planificador/img/icono_comida.png'),
-  casa: require('../assets/Materiales Planificador/img/icono_casa.png'),
-  gastos: require('../assets/Materiales Planificador/img/icono_gastos.png'),
-  ocio: require('../assets/Materiales Planificador/img/icono_ocio.png'),
-  salud: require('../assets/Materiales Planificador/img/icono_salud.png'),
-  suscripciones: require('../assets/Materiales Planificador/img/icono_suscripciones.png'),
+  ahorro: require('../img/ahorro.png'),
+  comida: require('../img/comida.png'),
+  casa: require('../img/casa.png'),
+  gastos: require('../img/gastos.png'),
+  ocio: require('../img/ocio.png'),
+  salud: require('../img/salud.png'),
+  suscripciones: require('../img/suscripciones.png'),
 };
 
-const Gasto = (gasto) => {
-  const {nombre, categoria, cantidad} = gasto;
+const Gasto = (gasto, setModal, setGasto) => {
+
+  const {nombre, categoria, cantidad, fecha} = gasto;
+
+  const handleAcciones = () => {
+    setModal(true);
+    setGasto(gasto);
+  };
 
   return (
-    <View style={styles.contenedor}>{/**Agregar sombras */}
-      <View style={styles.contenido}>
-        <View style={styles.contenedorImagen}>
-          <Image
-            style={styles.imagen}
-            source={diccionarioIconos[categoria]}
-          />
-          <View styles={styles.contenedorTexto}>
-            <Text styles={styles.categoria}>{categoria}</Text>
-            <Text styles={styles.nombre}>{nombre}</Text>
+    <Pressable
+      onLongPress={handleAcciones}
+    >
+      <View style={styles.contenedor}>{/**Agregar sombras */}
+        <View style={styles.contenido}>
+          <View style={styles.contenedorImagen}>
+            <Image
+              style={styles.imagen}
+              source={diccionarioIconos[categoria]}
+            />
+            <View styles={styles.contenedorTexto}>
+              <Text styles={styles.categoria}>{categoria}</Text>
+              <Text styles={styles.nombre}>{nombre}</Text>
+              <Text styles={styles.fecha}>{FormatearFecha(fecha)}</Text>
+            </View>
           </View>
+          <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
         </View>
-        <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
       </View>
-    </View>
+    </Pressable>
    );
 };
 
@@ -73,6 +90,10 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: '#64748b',
     marginBottom: 5,
+  },
+  fecha: {
+    fontWeight: 'bold',
+    color: '#db2777',
   },
   cantidad: {
     fontSize: 20,

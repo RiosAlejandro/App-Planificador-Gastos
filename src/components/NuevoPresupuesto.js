@@ -1,5 +1,11 @@
 import React from 'react';
-import { Text, View, TextInput, Pressable, StyleSheet } from 'react-native';
+import {
+  Text,
+  View,
+  TextInput,
+  Pressable,
+  StyleSheet,
+} from 'react-native';
 
 const NuevoPresupuesto = ({
   handleNuevoPresupuesto,
