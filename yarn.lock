@@ -2571,6 +2571,11 @@
   "resolved" "https://registry.npmjs.org/color-name/-/color-name-1.1.3.tgz"
   "version" "1.1.3"
 
+"colord@2.9.2":
+  "integrity" "sha512-Uqbg+J445nc1TKn4FoDPS6ZZqAvEDnwrH42yo8B40JSOgSLxMZ/gt3h4nmCtPLQeXhjJJkqBx7SCY35WnIixaQ=="
+  "resolved" "https://registry.npmjs.org/colord/-/colord-2.9.2.tgz"
+  "version" "2.9.2"
+
 "colorette@^1.0.7":
   "integrity" "sha512-Y2oEozpomLn7Q3HFP7dpww7AtMJplbM9lGZP6RDfHqmbeRjiwRg4n6VM6j4KLmRke85uWEI7JqF17f3pqdRA0g=="
   "resolved" "https://registry.npmjs.org/colorette/-/colorette-1.4.0.tgz"
@@ -5937,7 +5942,14 @@
     "normalize-svg-path" "^1.0.1"
     "parse-svg-path" "^0.1.2"
 
-"react-native-svg@^13.8.0", "react-native-svg@>=12.1.1":
+"react-native-shadow-2@^7.0.6":
+  "integrity" "sha512-kH0fKttPE67gIzTsnvmdJS0HAyb2utYAnUZguznmn6iNDRxRDD8RY1COsfW8YN1YuzYZgVtu60G394Az9bmuTg=="
+  "resolved" "https://registry.npmjs.org/react-native-shadow-2/-/react-native-shadow-2-7.0.6.tgz"
+  "version" "7.0.6"
+  dependencies:
+    "colord" "2.9.2"
+
+"react-native-svg@^13.8.0", "react-native-svg@>=12.1.0", "react-native-svg@>=12.1.1":
   "integrity" "sha512-G8Mx6W86da+vFimZBJvA93POw8yz0fgDS5biy6oIjMWVJVQSDzCyzwO/zY0yuZmCDhKSZzogl5m0wXXvW2OcTA=="
   "resolved" "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.8.0.tgz"
   "version" "13.8.0"

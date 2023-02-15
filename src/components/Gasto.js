@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { formatearCantidad, FormatearFecha } from '../helpers';
+import { Shadow } from 'react-native-shadow-2';
 
 const diccionarioIconos = {
   ahorro: require('../img/ahorro.png'),
@@ -31,22 +32,31 @@ const Gasto = (gasto, setModal, setGasto) => {
     <Pressable
       onLongPress={handleAcciones}
     >
-      <View style={styles.contenedor}>{/**Agregar sombras */}
-        <View style={styles.contenido}>
-          <View style={styles.contenedorImagen}>
-            <Image
-              style={styles.imagen}
-              source={diccionarioIconos[categoria]}
-            />
-            <View styles={styles.contenedorTexto}>
-              <Text styles={styles.categoria}>{categoria}</Text>
-              <Text styles={styles.nombre}>{nombre}</Text>
-              <Text styles={styles.fecha}>{FormatearFecha(fecha)}</Text>
+      <Shadow
+        distance={7}
+        startColor={'#00000028'}
+        endColor={'#00000001'}
+        offset={[0, 0]}
+        paintInside={false}
+        stretch={true}
+      >
+        <View style={styles.contenedor}>
+          <View style={styles.contenido}>
+            <View style={styles.contenedorImagen}>
+              <Image
+                style={styles.imagen}
+                source={diccionarioIconos[categoria]}
+              />
+              <View styles={styles.contenedorTexto}>
+                <Text styles={styles.categoria}>{categoria}</Text>
+                <Text styles={styles.nombre}>{nombre}</Text>
+                <Text styles={styles.fecha}>{FormatearFecha(fecha)}</Text>
+              </View>
             </View>
+            <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
           </View>
-          <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
         </View>
-      </View>
+      </Shadow>
     </Pressable>
    );
 };

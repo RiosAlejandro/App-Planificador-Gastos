@@ -6,6 +6,7 @@ import {
   Pressable,
   StyleSheet,
 } from 'react-native';
+import { Shadow } from 'react-native-shadow-2';
 
 const NuevoPresupuesto = ({
   handleNuevoPresupuesto,
@@ -14,22 +15,31 @@ const NuevoPresupuesto = ({
 ) => {
 
   return (
-    <View style={styles.contenedor}>{/**Agregar sombras */}
-      <Text style={styles.label}>Definir presupuesto</Text>
-      <TextInput
-        keyboardType="numeric"
-        placeholder="Agrega tu presupuesto: ej. 300"
-        style={styles.input}
-        value={presupuesto.toString()}
-        onChangeText={setPresupuesto}
-      />
-      <Pressable
-        style={styles.boton}
-        onPress={() => handleNuevoPresupuesto(presupuesto)}
-      >
-        <Text style={styles.botonTexto}>Agregar presupuesto</Text>
-      </Pressable>
-    </View>
+    <Shadow
+      distance={7}
+      startColor={'#00000028'}
+      endColor={'#00000001'}
+      offset={[0, 0]}
+      paintInside={false}
+      stretch={true}
+    >
+      <View style={styles.contenedor}>
+        <Text style={styles.label}>Definir presupuesto</Text>
+        <TextInput
+          keyboardType="numeric"
+          placeholder="Agrega tu presupuesto: ej. 300"
+          style={styles.input}
+          value={presupuesto.toString()}
+          onChangeText={setPresupuesto}
+        />
+        <Pressable
+          style={styles.boton}
+          onPress={() => handleNuevoPresupuesto(presupuesto)}
+        >
+          <Text style={styles.botonTexto}>Agregar presupuesto</Text>
+        </Pressable>
+      </View>
+    </Shadow>
    );
 };
 

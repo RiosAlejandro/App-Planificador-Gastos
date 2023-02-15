@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { formatearCantidad } from '../helpers/index';
+import { Shadow } from 'react-native-shadow-2';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 const ControlPresupuesto = ({presupuesto, gastos}) => {
@@ -27,40 +28,49 @@ const ControlPresupuesto = ({presupuesto, gastos}) => {
   }, [gastos, presupuesto]);
 
   return (
-    <View style={styles.contenedor}>{/**Agregar sombras */}
-      <View style={styles.centrarGrafica}>
-        <CircularProgress
-          value={porcentaje}
-          duration={1000}
-          radius={150}
-          valueSuffix={'%'}
-          title="Gastado"
-          inActiveStrokeColor="#f5f5f5"
-          inActiveStrokeWidth={20}
-          activeStrokeColor="#3b82f6"
-          activeStrokeWidth={20}
-          titleStyle={{fontWeight: 'bold', fontSize: 23}}
-          titleColor= "#64748b"
-        />
+    <Shadow
+      distance={7}
+      startColor={'#00000028'}
+      endColor={'#00000001'}
+      offset={[0, 0]}
+      paintInside={false}
+      stretch={true}
+    >
+      <View style={styles.contenedor}>
+        <View style={styles.centrarGrafica}>
+          <CircularProgress
+            value={porcentaje}
+            duration={1000}
+            radius={150}
+            valueSuffix={'%'}
+            title="Gastado"
+            inActiveStrokeColor="#f5f5f5"
+            inActiveStrokeWidth={20}
+            activeStrokeColor="#3b82f6"
+            activeStrokeWidth={20}
+            titleStyle={{fontWeight: 'bold', fontSize: 23}}
+            titleColor= "#64748b"
+          />
+        </View>
+
+        <View style={styles.contenedorTexto}>
+          <Text style={styles.valor}>
+            <Text style={styles.label}>Presupuesto: {''}</Text>
+            {formatearCantidad(presupuesto)}
+          </Text>
+
+          <Text style={styles.valor}>
+            <Text style={styles.label}>Disponible: {''}</Text>
+            {formatearCantidad(disponible)}
+          </Text>
+
+          <Text style={styles.valor}>
+            <Text style={styles.label}>Gastado: {''}</Text>
+            {formatearCantidad(gastado)}
+          </Text>
+        </View>
       </View>
-
-      <View style={styles.contenedorTexto}>
-        <Text style={styles.valor}>
-          <Text style={styles.label}>Presupuesto: {''}</Text>
-          {formatearCantidad(presupuesto)}
-        </Text>
-
-        <Text style={styles.valor}>
-          <Text style={styles.label}>Disponible: {''}</Text>
-          {formatearCantidad(disponible)}
-        </Text>
-
-        <Text style={styles.valor}>
-          <Text style={styles.label}>Gastado: {''}</Text>
-          {formatearCantidad(gastado)}
-        </Text>
-      </View>
-    </View>
+    </Shadow>
    );
 };
 
