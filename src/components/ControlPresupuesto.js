@@ -1,11 +1,11 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { formatearCantidad } from '../helpers/index';
 import { Shadow } from 'react-native-shadow-2';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
-const ControlPresupuesto = ({presupuesto, gastos}) => {
+const ControlPresupuesto = ({presupuesto, gastos, resetearApp}) => {
 
   const [disponible, setDisponible] = useState(0);
   const [gastado, setGastado] = useState(0);
@@ -54,6 +54,13 @@ const ControlPresupuesto = ({presupuesto, gastos}) => {
         </View>
 
         <View style={styles.contenedorTexto}>
+          <Pressable
+            style={styles.boton}
+            onPress={resetearApp}
+          >
+            <Text style={styles.textoBoton}>Reiniciar App</Text>
+          </Pressable>
+
           <Text style={styles.valor}>
             <Text style={styles.label}>Presupuesto: {''}</Text>
             {formatearCantidad(presupuesto)}
@@ -88,6 +95,18 @@ const styles = StyleSheet.create({
   },
   contenedorTexto: {
     marginTop: 50,
+  },
+  boton:{
+    backgroundColor: '#db2777',
+    padding: 10,
+    marginBottom: 40,
+    borderRadius: 5,
+  },
+  textoBoton:{
+    textAlign: 'center',
+    color: '#fff',
+    fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
   valor: {
     fontSize: 24,
