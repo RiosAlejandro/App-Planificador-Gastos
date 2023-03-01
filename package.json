@@ -12,6 +12,7 @@
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-picker/picker": "^2.4.8",
+    "jsc-android": "^250231.0.0",
     "react": "18.2.0",
     "react-native": "0.71.2",
     "react-native-circular-progress-indicator": "^4.4.2",

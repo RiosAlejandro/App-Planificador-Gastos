@@ -37,13 +37,13 @@ const FormularioGasto = ({
     <SafeAreaView style={styles.contenedor}>
       <View style={styles.contenedorBotones}>
         <Pressable
-          onLongPress={() => {
+          onPress={() => {
             setModal(false);
             setGasto({});
           }}
           style={[styles.btn ,styles.btnCancelar]}
         >
-          <Text styles={styles.btnTexto}>Cancelar</Text>
+          <Text style={styles.btnTexto}>Cancelar</Text>
         </Pressable>
 
         { !!id && (
@@ -51,7 +51,7 @@ const FormularioGasto = ({
             style={[styles.btn ,styles.btnEliminar]}
             onLongPress={() => eliminarGasto(id)}
           >
-            <Text styles={styles.btnTexto}>Eliminar</Text>
+            <Text style={styles.btnTexto}>Eliminar</Text>
           </Pressable>
         )}
       </View>

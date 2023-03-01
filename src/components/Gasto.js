@@ -7,19 +7,18 @@ import {
   View,
 } from 'react-native';
 import { formatearCantidad, FormatearFecha } from '../helpers';
-import { Shadow } from 'react-native-shadow-2';
 
 const diccionarioIconos = {
-  ahorro: require('../img/ahorro.png'),
-  comida: require('../img/comida.png'),
-  casa: require('../img/casa.png'),
-  gastos: require('../img/gastos.png'),
-  ocio: require('../img/ocio.png'),
-  salud: require('../img/salud.png'),
-  suscripciones: require('../img/suscripciones.png'),
+  ahorro: require('../assets/img/ahorro.png'),
+  comida: require('../assets/img/comida.png'),
+  casa: require('../assets/img/casa.png'),
+  gastos: require('../assets/img/gastos.png'),
+  ocio: require('../assets/img/ocio.png'),
+  salud: require('../assets/img/salud.png'),
+  suscripciones: require('../assets/img/suscripciones.png'),
 };
 
-const Gasto = (gasto, setModal, setGasto) => {
+const Gasto = ({gasto, setModal, setGasto}) => {
 
   const {nombre, categoria, cantidad, fecha} = gasto;
 
@@ -32,14 +31,6 @@ const Gasto = (gasto, setModal, setGasto) => {
     <Pressable
       onLongPress={handleAcciones}
     >
-      <Shadow
-        distance={7}
-        startColor={'#00000028'}
-        endColor={'#00000001'}
-        offset={[0, 0]}
-        paintInside={false}
-        stretch={true}
-      >
         <View style={styles.contenedor}>
           <View style={styles.contenido}>
             <View style={styles.contenedorImagen}>
@@ -56,7 +47,6 @@ const Gasto = (gasto, setModal, setGasto) => {
             <Text style={styles.cantidad}>{formatearCantidad(cantidad)}</Text>
           </View>
         </View>
-      </Shadow>
     </Pressable>
    );
 };

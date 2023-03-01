@@ -17,7 +17,6 @@ import FormularioGasto from './src/components/FormularioGasto';
 import ListadoGastos from './src/components/ListadoGastos';
 import Filtro from './src/components/Filtro';
 import Header from './src/components/Headers';
-import Imagen from './src/components/Imagen';
 
 function App() {
 
@@ -202,11 +201,10 @@ function App() {
 
       {isValidPresupuesto && (
         <Pressable
-        style={styles.pressable}
+          style={styles.pressable}
           onPress={() => setModal(!modal)}
         >
-          <Image source={require('./src/img/nuevoGasto.png')} />
-          <Imagen />
+          <Image style={styles.imagen} source={require('./src/assets/img/nuevoGasto.png')} />
         </Pressable>
       )}
     </View>

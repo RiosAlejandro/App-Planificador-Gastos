@@ -4680,6 +4680,11 @@
   "resolved" "https://registry.npmjs.org/jsc-android/-/jsc-android-250230.2.1.tgz"
   "version" "250230.2.1"
 
+"jsc-android@^250231.0.0":
+  "integrity" "sha512-rS46PvsjYmdmuz1OAWXY/1kCYG7pnf1TBqeTiOJr1iDz7s5DLxxC9n/ZMknLDxzYzNVfI7R95MH10emSSG1Wuw=="
+  "resolved" "https://registry.npmjs.org/jsc-android/-/jsc-android-250231.0.0.tgz"
+  "version" "250231.0.0"
+
 "jscodeshift@^0.13.1":
   "integrity" "sha512-lGyiEbGOvmMRKgWk4vf+lUrCWO/8YR8sUR3FKF1Cq5fovjZDlIcw3Hu5ppLHAnEXshVffvaM0eyuY/AbOeYpnQ=="
   "resolved" "https://registry.npmjs.org/jscodeshift/-/jscodeshift-0.13.1.tgz"

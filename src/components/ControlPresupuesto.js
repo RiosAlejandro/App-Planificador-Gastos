@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { formatearCantidad } from '../helpers/index';
-import { Shadow } from 'react-native-shadow-2';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 const ControlPresupuesto = ({presupuesto, gastos, resetearApp}) => {
@@ -28,14 +27,6 @@ const ControlPresupuesto = ({presupuesto, gastos, resetearApp}) => {
   }, [gastos, presupuesto]);
 
   return (
-    <Shadow
-      distance={7}
-      startColor={'#00000028'}
-      endColor={'#00000001'}
-      offset={[0, 0]}
-      paintInside={false}
-      stretch={true}
-    >
       <View style={styles.contenedor}>
         <View style={styles.centrarGrafica}>
           <CircularProgress
@@ -77,7 +68,6 @@ const ControlPresupuesto = ({presupuesto, gastos, resetearApp}) => {
           </Text>
         </View>
       </View>
-    </Shadow>
    );
 };
 
